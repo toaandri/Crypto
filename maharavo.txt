@@ -1,0 +1,725 @@
+PROJET AUTODIDACTE — CRYPTO-FROM-SCRATCH
+===========================================
+
+Titre
+-----
+Crypto From Scratch — Bibliothèque cryptographique éducative développée avec Python
+
+OBJECTIF
+--------
+Construire progressivement une bibliothèque cryptographique en implémentant soi-même
+les principaux mécanismes mathématiques et algorithmiques utilisés en cryptographie.
+
+Le projet doit servir à comprendre :
+- l'arithmétique modulaire ;
+- la théorie des nombres ;
+- les nombres premiers ;
+- RSA ;
+- Diffie-Hellman ;
+- les fonctions de hachage ;
+- le chiffrement symétrique ;
+- les bases des protocoles sécurisés.
+
+IMPORTANT
+---------
+Ce projet est éducatif.
+
+Les algorithmes implémentés "from scratch" ne doivent pas être considérés comme
+suffisamment sûrs pour protéger de vraies données. En production, utiliser des
+bibliothèques cryptographiques reconnues et auditées.
+
+============================================================
+1. TECHNOLOGIES
+============================================================
+
+- Python 3
+- bibliothèque standard Python
+- éventuellement NumPy pour certaines expérimentations
+- pytest
+- Git / GitHub
+- Matplotlib éventuellement pour visualiser certaines propriétés
+
+Au début, éviter les bibliothèques qui réalisent directement les opérations
+cryptographiques étudiées.
+
+============================================================
+2. FONDATIONS MATHÉMATIQUES
+============================================================
+
+Avant les algorithmes cryptographiques, implémenter et comprendre :
+
+- modulo
+- PGCD
+- algorithme d'Euclide
+- algorithme d'Euclide étendu
+- inverse modulaire
+- exponentiation modulaire rapide
+- arithmétique sur grands entiers
+- nombres premiers
+- factorisation
+- congruences
+
+Exemples :
+
+    gcd(a, b)
+
+    extended_gcd(a, b)
+
+    mod_inverse(a, n)
+
+    mod_pow(a, b, n)
+
+============================================================
+3. V1 — ARITHMÉTIQUE MODULAIRE
+============================================================
+
+Créer un module mathématique.
+
+Fonctions possibles :
+
+    gcd()
+    extended_gcd()
+    mod_inverse()
+    mod_pow()
+
+Ajouter des tests unitaires.
+
+Expliquer dans la documentation les concepts mathématiques derrière chaque fonction.
+
+Exemple :
+
+    3 * x ≡ 1 (mod 7)
+
+Le programme doit pouvoir déterminer :
+
+    x = 5
+
+car :
+
+    3 × 5 = 15 ≡ 1 (mod 7)
+
+============================================================
+4. V2 — NOMBRES PREMIERS
+============================================================
+
+Créer des outils permettant de travailler avec de grands nombres premiers.
+
+Implémenter progressivement :
+
+- test de primalité simple ;
+- test probabiliste ;
+- Miller-Rabin ;
+- génération de nombres premiers ;
+- génération de grands nombres aléatoires.
+
+Comparer :
+- vitesse ;
+- taille des nombres ;
+- nombre d'itérations ;
+- probabilité d'erreur pour les tests probabilistes.
+
+Exemple :
+
+    generate_prime(1024)
+
+doit générer un nombre premier d'environ 1024 bits.
+
+============================================================
+5. V3 — RSA
+============================================================
+
+Implémenter RSA à des fins éducatives.
+
+Processus :
+
+    p, q
+     |
+     v
+    n = p × q
+     |
+     v
+    φ(n)
+     |
+     v
+    choix de e
+     |
+     v
+    calcul de d
+     |
+     v
+    clés
+     |
+     +----------+
+     |          |
+     v          v
+    Public    Privée
+
+Clé publique :
+
+    (n, e)
+
+Clé privée :
+
+    (n, d)
+
+Chiffrement :
+
+    c = m^e mod n
+
+Déchiffrement :
+
+    m = c^d mod n
+
+Implémenter :
+- génération de clés ;
+- chiffrement ;
+- déchiffrement ;
+- sérialisation des clés ;
+- tests.
+
+IMPORTANT :
+Ne pas implémenter uniquement la formule RSA brute comme si elle était une version
+sécurisée de RSA moderne. Documenter les problèmes liés au padding et montrer pourquoi
+RSA-OAEP est nécessaire en pratique.
+
+============================================================
+6. V4 — RSA AVEC BLOCS ET ENCODAGE
+============================================================
+
+Explorer :
+- conversion texte → bytes ;
+- bytes → entier ;
+- découpage en blocs ;
+- taille maximale d'un message ;
+- reconstruction du message.
+
+Objectif pédagogique :
+
+    "Bonjour"
+        ↓
+      bytes
+        ↓
+      blocs
+        ↓
+    chiffrement
+        ↓
+    blocs chiffrés
+        ↓
+    déchiffrement
+        ↓
+      texte
+
+Étudier les limites du RSA brut.
+
+============================================================
+7. V5 — DIFFIE-HELLMAN
+============================================================
+
+Implémenter un échange de clé Diffie-Hellman.
+
+Principe :
+
+    Alice                         Bob
+
+      a                             b
+      |                             |
+      v                             v
+    g^a mod p                    g^b mod p
+      |                             |
+      +---------- échange ---------+
+      |                             |
+      v                             v
+    (g^b)^a                       (g^a)^b
+             \                   /
+              \                 /
+               SECRET COMMUN
+
+Les deux parties doivent obtenir :
+
+    g^(ab) mod p
+
+Expérimenter avec différentes tailles de paramètres.
+
+Puis documenter :
+- pourquoi le secret n'est pas envoyé ;
+- problème du logarithme discret ;
+- attaque Man-in-the-Middle ;
+- nécessité d'authentifier les parties.
+
+============================================================
+8. V6 — FONCTION DE HACHAGE
+============================================================
+
+Comprendre les propriétés d'une fonction de hachage cryptographique :
+
+- déterminisme ;
+- résistance à la préimage ;
+- résistance à la seconde préimage ;
+- résistance aux collisions ;
+- effet avalanche.
+
+Créer d'abord un petit hash pédagogique.
+
+Puis étudier l'architecture d'un algorithme réel comme SHA-256.
+
+L'objectif peut être d'implémenter SHA-256 pour comprendre :
+- padding ;
+- blocs ;
+- fonctions logiques ;
+- rotations ;
+- constantes ;
+- compression ;
+- état interne.
+
+Comparer ensuite le résultat avec une implémentation standard.
+
+============================================================
+9. V7 — EXPÉRIENCE SUR L'EFFET AVALANCHE
+============================================================
+
+Prendre un message :
+
+    "Bonjour"
+
+Puis modifier un seul bit.
+
+Comparer :
+
+    hash(message)
+    hash(message_modifié)
+
+Mesurer le nombre de bits différents.
+
+Créer plusieurs expériences et produire des statistiques.
+
+Objectif :
+montrer expérimentalement l'effet avalanche.
+
+============================================================
+10. V8 — CHIFFREMENT SYMÉTRIQUE
+============================================================
+
+Étudier le principe du chiffrement symétrique.
+
+Architecture :
+
+    Message
+       |
+       v
+    Clé secrète
+       |
+       v
+    Chiffrement
+       |
+       v
+    Ciphertext
+       |
+       v
+    Déchiffrement
+       |
+       v
+    Message
+
+Commencer par un chiffrement pédagogique simple.
+
+Puis étudier AES en profondeur :
+- structure générale ;
+- blocs ;
+- clé ;
+- rounds ;
+- SubBytes ;
+- ShiftRows ;
+- MixColumns ;
+- AddRoundKey.
+
+Une implémentation AES complète peut être une phase avancée.
+
+============================================================
+11. V9 — MODES DE CHIFFREMENT
+============================================================
+
+Étudier les modes :
+- ECB ;
+- CBC ;
+- CTR ;
+- GCM au niveau conceptuel puis pratique.
+
+Montrer pourquoi ECB est dangereux.
+
+Créer une expérience avec une image ou une matrice répétitive :
+
+    plaintext
+       ↓
+      ECB
+       ↓
+ ciphertext
+
+Puis comparer avec un mode approprié.
+
+============================================================
+12. V10 — AUTHENTIFICATION ET INTÉGRITÉ
+============================================================
+
+Explorer :
+- HMAC ;
+- MAC ;
+- signatures numériques ;
+- authentification des messages.
+
+Comprendre la différence entre :
+
+    chiffrement
+    intégrité
+    authentification
+    signature
+
+Puis créer des exemples de messages modifiés et détecter les altérations.
+
+============================================================
+13. V11 — SIGNATURE NUMÉRIQUE
+============================================================
+
+Étudier le principe :
+
+    Message
+       |
+       v
+      Hash
+       |
+       v
+    Signature
+       |
+       v
+    vérification
+       |
+       v
+    valide / invalide
+
+Commencer avec une démonstration RSA éducative.
+
+Puis étudier conceptuellement :
+- RSA-PSS ;
+- ECDSA ;
+- EdDSA.
+
+L'objectif est de comprendre les différences entre chiffrement et signature.
+
+============================================================
+14. V12 — MINI PROTOCOLE SÉCURISÉ
+============================================================
+
+Créer une simulation de communication sécurisée entre deux utilisateurs.
+
+Exemple :
+
+    Alice                         Bob
+      |                             |
+      | ---- paramètres publics --->|
+      |                             |
+      | <--- paramètres publics --- |
+      |                             |
+      | ---- échange de clé ------> |
+      |                             |
+      | ===== secret partagé =====  |
+      |                             |
+      | ---- message chiffré ------>|
+      |                             |
+      | <--- réponse chiffrée ------|
+      |                             |
+
+Le système doit gérer :
+- établissement d'un secret ;
+- chiffrement ;
+- authentification ;
+- intégrité ;
+- détection d'un message modifié.
+
+============================================================
+15. V13 — SIMULATION D'ATTAQUES
+============================================================
+
+Créer uniquement des simulations locales et éducatives.
+
+Exemples :
+
+- brute force sur une petite clé ;
+- attaque par dictionnaire sur un mot de passe de démonstration ;
+- collision sur un hash volontairement faible ;
+- attaque Man-in-the-Middle sur un Diffie-Hellman non authentifié ;
+- factorisation de petits nombres RSA.
+
+Le but est de comprendre pourquoi les paramètres cryptographiques modernes
+sont choisis avec soin.
+
+============================================================
+16. V14 — ANALYSE DE PERFORMANCE
+============================================================
+
+Mesurer :
+- temps de génération de clés ;
+- temps de chiffrement ;
+- temps de déchiffrement ;
+- temps de hachage ;
+- taille des clés ;
+- taille des messages ;
+- consommation mémoire.
+
+Créer des benchmarks reproductibles.
+
+Exemple :
+
+    RSA 512 bits
+    RSA 1024 bits
+    RSA 2048 bits
+
+Observer comment les performances changent.
+
+Les petites tailles servent uniquement aux expériences et ne doivent pas être
+présentées comme sécurisées.
+
+============================================================
+17. TESTS
+============================================================
+
+Tester chaque composant :
+
+Mathématiques :
+- PGCD ;
+- inverse modulaire ;
+- exponentiation modulaire ;
+- primalité.
+
+RSA :
+- génération ;
+- chiffrement ;
+- déchiffrement ;
+- différentes tailles ;
+- messages invalides.
+
+Diffie-Hellman :
+- secret identique des deux côtés ;
+- paramètres invalides.
+
+Hash :
+- déterminisme ;
+- messages différents ;
+- longueur de sortie ;
+- vecteurs de test connus.
+
+Signature :
+- signature valide ;
+- message modifié ;
+- clé incorrecte.
+
+============================================================
+18. TESTS AVEC DES VECTEURS DE RÉFÉRENCE
+============================================================
+
+Pour les algorithmes réels, comparer les résultats avec des vecteurs de test
+publics et des implémentations standards.
+
+Objectif :
+
+    Implémentation personnelle
+             VS
+    Implémentation de référence
+
+Les différences doivent être analysées et expliquées.
+
+============================================================
+19. STRUCTURE GITHUB
+============================================================
+
+    crypto-from-scratch/
+    |
+    +-- crypto/
+    |   +-- math/
+    |   |   +-- modular.py
+    |   |   +-- primes.py
+    |   |
+    |   +-- rsa/
+    |   |   +-- keys.py
+    |   |   +-- encrypt.py
+    |   |   +-- decrypt.py
+    |   |
+    |   +-- diffie_hellman/
+    |   |   +-- exchange.py
+    |   |
+    |   +-- hashes/
+    |   |   +-- educational_hash.py
+    |   |   +-- sha256.py
+    |   |
+    |   +-- symmetric/
+    |   |   +-- aes.py
+    |   |   +-- modes.py
+    |   |
+    |   +-- signatures/
+    |   |
+    |   +-- protocols/
+    |       +-- secure_channel.py
+    |
+    +-- examples/
+    |   +-- rsa/
+    |   +-- diffie_hellman/
+    |   +-- hashing/
+    |   +-- secure_channel/
+    |
+    +-- experiments/
+    |   +-- avalanche/
+    |   +-- benchmarks/
+    |   +-- attacks/
+    |
+    +-- tests/
+    |
+    +-- docs/
+    |   +-- mathematics/
+    |   +-- cryptography/
+    |   +-- security/
+    |
+    +-- README.md
+    +-- requirements.txt
+    +-- pyproject.toml
+    +-- .gitignore
+    +-- LICENSE
+
+============================================================
+20. DOCUMENTATION
+============================================================
+
+Pour chaque algorithme, documenter :
+
+1. problème résolu ;
+2. principe ;
+3. mathématiques ;
+4. algorithme ;
+5. implémentation ;
+6. exemple ;
+7. limites ;
+8. vulnérabilités connues ;
+9. utilisation moderne ;
+10. différence entre version pédagogique et version production.
+
+============================================================
+21. ROADMAP
+============================================================
+
+PHASE 1 — MATHÉMATIQUES
+-----------------------
+V1 Arithmétique modulaire
+V2 Nombres premiers
+
+PHASE 2 — CRYPTOGRAPHIE ASYMÉTRIQUE
+-----------------------------------
+V3 RSA
+V4 RSA et encodage
+V5 Diffie-Hellman
+
+PHASE 3 — HASH ET SYMÉTRIQUE
+----------------------------
+V6 Hash
+V7 Effet avalanche
+V8 Chiffrement symétrique
+V9 Modes de chiffrement
+
+PHASE 4 — AUTHENTIFICATION
+--------------------------
+V10 HMAC / intégrité
+V11 Signatures numériques
+
+PHASE 5 — SYSTÈME COMPLET
+-------------------------
+V12 Mini protocole sécurisé
+V13 Simulations d'attaques
+V14 Benchmarks
+
+============================================================
+22. EXPÉRIENCES SCIENTIFIQUES
+============================================================
+
+Expérience A :
+Quelle est l'influence de la taille d'une clé RSA sur le temps de génération ?
+
+Expérience B :
+Comment évolue le temps de factorisation lorsque la taille de l'entier augmente ?
+
+Expérience C :
+Quelle quantité de bits change lorsqu'un seul bit du message est modifié dans
+une fonction de hachage ?
+
+Expérience D :
+Quelle différence existe entre ECB et CBC sur des données répétitives ?
+
+Expérience E :
+Que se passe-t-il lorsqu'un Diffie-Hellman n'est pas authentifié ?
+
+Expérience F :
+Comment les paramètres cryptographiques influencent-ils sécurité et performance ?
+
+Pour chaque expérience :
+- hypothèse ;
+- protocole ;
+- données ;
+- résultats ;
+- graphique si pertinent ;
+- interprétation ;
+- conclusion.
+
+============================================================
+23. RÈGLES DU PROJET
+============================================================
+
+1. Comprendre les mathématiques avant de coder.
+2. Implémenter progressivement.
+3. Tester chaque composant.
+4. Ne pas confondre implémentation éducative et sécurité réelle.
+5. Ne jamais utiliser ce code pour protéger des données sensibles.
+6. Comparer avec des implémentations de référence.
+7. Documenter les limites.
+8. Utiliser Git régulièrement.
+9. Faire des expériences reproductibles.
+10. Étudier les attaques pour comprendre les défenses.
+
+============================================================
+24. OBJECTIF FINAL
+============================================================
+
+À la fin du projet, être capable d'expliquer :
+
+- ce qu'est l'arithmétique modulaire ;
+- comment fonctionne l'algorithme d'Euclide étendu ;
+- comment trouver un inverse modulaire ;
+- pourquoi les nombres premiers sont importants ;
+- comment RSA génère ses clés ;
+- pourquoi RSA nécessite du padding ;
+- comment Diffie-Hellman établit un secret partagé ;
+- pourquoi Diffie-Hellman seul ne garantit pas l'authentification ;
+- ce qu'est une fonction de hachage cryptographique ;
+- ce qu'est l'effet avalanche ;
+- comment fonctionne le chiffrement symétrique ;
+- pourquoi les modes de chiffrement sont importants ;
+- la différence entre chiffrement, hash, MAC et signature ;
+- comment une attaque Man-in-the-Middle fonctionne conceptuellement ;
+- pourquoi les implémentations de production doivent être auditées.
+
+============================================================
+CONCLUSION
+============================================================
+
+Ce projet combine :
+
+    THÉORIE DES NOMBRES
+           +
+    MATHÉMATIQUES
+           +
+    ALGORITHMIQUE
+           +
+    PROGRAMMATION
+           +
+    CYBERSÉCURITÉ
+
+Le but n'est pas de créer une bibliothèque cryptographique destinée à remplacer
+les solutions professionnelles.
+
+Le but est de comprendre suffisamment profondément les mécanismes cryptographiques
+pour pouvoir ensuite utiliser correctement des bibliothèques modernes et comprendre
+leurs choix de conception et leurs garanties de sécurité.
