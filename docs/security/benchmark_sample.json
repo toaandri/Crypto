@@ -1,0 +1,283 @@
+{
+  "python": "3.14.2",
+  "platform": "Windows-11-10.0.26200-SP0",
+  "educational_only": true,
+  "results": [
+    {
+      "operation": "rsa_keygen",
+      "key_bits_requested": 512,
+      "median_seconds": 0.032966599999781465,
+      "min_seconds": 0.02230260000033013,
+      "peak_python_bytes": 1276,
+      "repeats": 3
+    },
+    {
+      "operation": "rsa_encrypt",
+      "key_bits_requested": 512,
+      "modulus_bits": 512,
+      "message_bytes": 16,
+      "median_seconds": 2.769999991869554e-05,
+      "min_seconds": 2.719999974942766e-05,
+      "peak_python_bytes": 1312,
+      "repeats": 3
+    },
+    {
+      "operation": "rsa_decrypt",
+      "key_bits_requested": 512,
+      "modulus_bits": 512,
+      "message_bytes": 16,
+      "median_seconds": 0.0008816999998089159,
+      "min_seconds": 0.000869800000145915,
+      "peak_python_bytes": 940,
+      "repeats": 3
+    },
+    {
+      "operation": "rsa_encrypt",
+      "key_bits_requested": 512,
+      "modulus_bits": 512,
+      "message_bytes": 256,
+      "median_seconds": 9.660000068834051e-05,
+      "min_seconds": 9.479999971517827e-05,
+      "peak_python_bytes": 1720,
+      "repeats": 3
+    },
+    {
+      "operation": "rsa_decrypt",
+      "key_bits_requested": 512,
+      "modulus_bits": 512,
+      "message_bytes": 256,
+      "median_seconds": 0.004233399999066023,
+      "min_seconds": 0.004232400000546477,
+      "peak_python_bytes": 1321,
+      "repeats": 3
+    },
+    {
+      "operation": "rsa_encrypt",
+      "key_bits_requested": 512,
+      "modulus_bits": 512,
+      "message_bytes": 1024,
+      "median_seconds": 0.0003335999990667915,
+      "min_seconds": 0.0003328000002511544,
+      "peak_python_bytes": 2980,
+      "repeats": 3
+    },
+    {
+      "operation": "rsa_decrypt",
+      "key_bits_requested": 512,
+      "modulus_bits": 512,
+      "message_bytes": 1024,
+      "median_seconds": 0.015140400000746013,
+      "min_seconds": 0.014798599999267026,
+      "peak_python_bytes": 2310,
+      "repeats": 3
+    },
+    {
+      "operation": "rsa_keygen",
+      "key_bits_requested": 1024,
+      "median_seconds": 0.10780380000142031,
+      "min_seconds": 0.08638179999979911,
+      "peak_python_bytes": 1840,
+      "repeats": 3
+    },
+    {
+      "operation": "rsa_encrypt",
+      "key_bits_requested": 1024,
+      "modulus_bits": 1023,
+      "message_bytes": 16,
+      "median_seconds": 4.0600001739221625e-05,
+      "min_seconds": 3.9999998989515007e-05,
+      "peak_python_bytes": 1868,
+      "repeats": 3
+    },
+    {
+      "operation": "rsa_decrypt",
+      "key_bits_requested": 1024,
+      "modulus_bits": 1023,
+      "message_bytes": 16,
+      "median_seconds": 0.004515499998888117,
+      "min_seconds": 0.004498400001466507,
+      "peak_python_bytes": 1560,
+      "repeats": 3
+    },
+    {
+      "operation": "rsa_encrypt",
+      "key_bits_requested": 1024,
+      "modulus_bits": 1023,
+      "message_bytes": 256,
+      "median_seconds": 0.0001329000006080605,
+      "min_seconds": 0.00013099999887344893,
+      "peak_python_bytes": 2188,
+      "repeats": 3
+    },
+    {
+      "operation": "rsa_decrypt",
+      "key_bits_requested": 1024,
+      "modulus_bits": 1023,
+      "message_bytes": 256,
+      "median_seconds": 0.013443200001347577,
+      "min_seconds": 0.0133166000014171,
+      "peak_python_bytes": 2011,
+      "repeats": 3
+    },
+    {
+      "operation": "rsa_encrypt",
+      "key_bits_requested": 1024,
+      "modulus_bits": 1023,
+      "message_bytes": 1024,
+      "median_seconds": 0.0004287000010663178,
+      "min_seconds": 0.0004260000005160691,
+      "peak_python_bytes": 3228,
+      "repeats": 3
+    },
+    {
+      "operation": "rsa_decrypt",
+      "key_bits_requested": 1024,
+      "modulus_bits": 1023,
+      "message_bytes": 1024,
+      "median_seconds": 0.03982490000089456,
+      "min_seconds": 0.039799199999833945,
+      "peak_python_bytes": 2773,
+      "repeats": 3
+    },
+    {
+      "operation": "rsa_keygen",
+      "key_bits_requested": 2048,
+      "median_seconds": 0.6615631000004214,
+      "min_seconds": 0.6188813999997365,
+      "peak_python_bytes": 2792,
+      "repeats": 3
+    },
+    {
+      "operation": "rsa_encrypt",
+      "key_bits_requested": 2048,
+      "modulus_bits": 2047,
+      "message_bytes": 16,
+      "median_seconds": 0.00011350000022503082,
+      "min_seconds": 0.00011280000035185367,
+      "peak_python_bytes": 2960,
+      "repeats": 3
+    },
+    {
+      "operation": "rsa_decrypt",
+      "key_bits_requested": 2048,
+      "modulus_bits": 2047,
+      "message_bytes": 16,
+      "median_seconds": 0.029051700001218705,
+      "min_seconds": 0.02903359999982058,
+      "peak_python_bytes": 2784,
+      "repeats": 3
+    },
+    {
+      "operation": "rsa_encrypt",
+      "key_bits_requested": 2048,
+      "modulus_bits": 2047,
+      "message_bytes": 256,
+      "median_seconds": 0.000246300000071642,
+      "min_seconds": 0.00024299999859067611,
+      "peak_python_bytes": 3252,
+      "repeats": 3
+    },
+    {
+      "operation": "rsa_decrypt",
+      "key_bits_requested": 2048,
+      "modulus_bits": 2047,
+      "message_bytes": 256,
+      "median_seconds": 0.05947139999989304,
+      "min_seconds": 0.05800190000081784,
+      "peak_python_bytes": 3372,
+      "repeats": 3
+    },
+    {
+      "operation": "rsa_encrypt",
+      "key_bits_requested": 2048,
+      "modulus_bits": 2047,
+      "message_bytes": 1024,
+      "median_seconds": 0.0007415000000037253,
+      "min_seconds": 0.0007408000001305481,
+      "peak_python_bytes": 4184,
+      "repeats": 3
+    },
+    {
+      "operation": "rsa_decrypt",
+      "key_bits_requested": 2048,
+      "modulus_bits": 2047,
+      "message_bytes": 1024,
+      "median_seconds": 0.14581230000112555,
+      "min_seconds": 0.14554879999923287,
+      "peak_python_bytes": 4137,
+      "repeats": 3
+    },
+    {
+      "operation": "sha256",
+      "message_bytes": 16,
+      "median_seconds": 0.0002210000002378365,
+      "min_seconds": 0.000218999999560765,
+      "peak_python_bytes": 3365,
+      "repeats": 3
+    },
+    {
+      "operation": "feistel_cbc_encrypt",
+      "message_bytes": 16,
+      "median_seconds": 0.0005657999990944518,
+      "min_seconds": 0.0005144999995536637,
+      "peak_python_bytes": 4290,
+      "repeats": 3
+    },
+    {
+      "operation": "feistel_cbc_decrypt",
+      "message_bytes": 16,
+      "median_seconds": 0.0005041000003984664,
+      "min_seconds": 0.0004967000004398869,
+      "peak_python_bytes": 4209,
+      "repeats": 3
+    },
+    {
+      "operation": "sha256",
+      "message_bytes": 256,
+      "median_seconds": 0.0010808000006363727,
+      "min_seconds": 0.0010796000005939277,
+      "peak_python_bytes": 4134,
+      "repeats": 3
+    },
+    {
+      "operation": "feistel_cbc_encrypt",
+      "message_bytes": 256,
+      "median_seconds": 0.0010024000002886169,
+      "min_seconds": 0.0009759000004123664,
+      "peak_python_bytes": 4186,
+      "repeats": 3
+    },
+    {
+      "operation": "feistel_cbc_decrypt",
+      "message_bytes": 256,
+      "median_seconds": 0.0009807999995246064,
+      "min_seconds": 0.0009791000011318829,
+      "peak_python_bytes": 4097,
+      "repeats": 3
+    },
+    {
+      "operation": "sha256",
+      "message_bytes": 1024,
+      "median_seconds": 0.003952000000936096,
+      "min_seconds": 0.0036580000014510006,
+      "peak_python_bytes": 4966,
+      "repeats": 3
+    },
+    {
+      "operation": "feistel_cbc_encrypt",
+      "message_bytes": 1024,
+      "median_seconds": 0.0024835000003804453,
+      "min_seconds": 0.0024718000004213536,
+      "peak_python_bytes": 4158,
+      "repeats": 3
+    },
+    {
+      "operation": "feistel_cbc_decrypt",
+      "message_bytes": 1024,
+      "median_seconds": 0.0034652000013011275,
+      "min_seconds": 0.0031115999991015997,
+      "peak_python_bytes": 4057,
+      "repeats": 3
+    }
+  ]
+}

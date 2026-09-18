@@ -18,6 +18,7 @@ fait l'objet d'aucune cryptanalyse.
 ECB, CBC et CTR n'authentifient pas les données. Un adversaire peut les modifier
 sans être détecté. En production, utiliser un mode AEAD audité (AES-GCM ou
 ChaCha20-Poly1305). AES lui-même emploie SubBytes, ShiftRows, MixColumns et
-AddRoundKey sur des blocs de 128 bits ; son implémentation complète est laissée
-à une phase avancée, conformément au cahier des charges.
-
+AddRoundKey sur des blocs de 128 bits. Le projet fournit maintenant AES-128,
+AES-192 et AES-256 ainsi que GCM : voir [AES et GCM](aes_gcm.md). Les fonctions
+ECB/CBC/CTR existantes continuent d'utiliser Feistel ; les fonctions `gcm_*`
+utilisent AES et authentifient aussi les données associées.

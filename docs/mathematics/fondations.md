@@ -23,7 +23,21 @@ Miller–Rabin. Les sept bases fixes rendent le résultat déterministe pour
 le bit impair, puis teste les candidats. Le résultat possède exactement le
 nombre de bits demandé.
 
+## Factorisation et expériences
+
+`factorize(n)` divise successivement par 2, puis les diviseurs impairs jusqu'à
+la racine du reste. Chaque facteur est conservé avec sa multiplicité :
+`factorize(72) == [2, 2, 2, 3, 3]`, tandis que `factorize(1) == []`.
+Cette méthode simple n'est adaptée qu'aux petits entiers ; elle ne représente
+pas les meilleurs algorithmes de factorisation connus.
+
+`experiments.science.run` compare division d'essai et Miller–Rabin sur les mêmes
+premiers de 12 à 32 bits, puis 1, 4, 8, 16 et 40 témoins sur `2**127-1`. Sous
+`2**64`, le paramètre `rounds` ne change pas les sept bases déterministes.
+La borne `4**(-rounds)` concerne un composé fixé et des témoins indépendants ;
+ce n'est pas la probabilité a posteriori qu'un entier accepté soit composé.
+Les tableaux de mesures et graphiques sont décrits dans [les expériences](../experiments.md).
+
 Ces opérations Python ne sont pas à temps constant : elles révèlent
 potentiellement des informations par leur durée et ne conviennent pas à la
 production.
-

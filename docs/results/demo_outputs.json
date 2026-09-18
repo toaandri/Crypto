@@ -1,0 +1,44 @@
+{
+  "math": [
+    "PGCD(240, 46) = 2\nCoefficients de Bezout : -9 47\nInverse de 3 modulo 7 : 5\n4**13 modulo 497 : 445",
+    "Premier genere : 64 bits\nTest Miller-Rabin : True\nFacteurs de 3233 : [53, 61]"
+  ],
+  "rsa": [
+    "n = 3233 / d = 2753\n42 -> 2557 -> 42",
+    "Blocs chiffres : 1\nMessage retrouve : Bonjour, RSA !\nCle publique JSON : aller-retour OK"
+  ],
+  "dh": [
+    "Alice publie A = 8\nBob publie B = 19",
+    "Secret Alice : 2\nSecret Bob   : 2\nSecrets identiques : True"
+  ],
+  "hash": [
+    "Debut du SHA-256 : ba7816bf8f01cfea\nTaille : 256 bits",
+    "Essais : 56\nMoyenne : 127.2 / 256 bits\nProportion : 49.69 %"
+  ],
+  "aes": [
+    "Bloc : 16 octets\nTours AES-128 : 10\nTours AES-192 : 12\nTours AES-256 : 14",
+    "Chiffre (hex) :\n69c4e0d86a7b0430d8cdb78070b4c55a\nDechiffrement : bloc initial retrouve"
+  ],
+  "modes": [
+    "ECB : blocs egaux ? True\nCBC : blocs egaux ? False",
+    "Sans padding : True\nRetour CTR : REPETE!!REPETE!!REPETE!!",
+    "Message : Bonjour\nNonce / tag : 12 / 16 octets"
+  ],
+  "authentication": [
+    "Message original : True\nMontant modifie  : False",
+    "Signature valide : True\nMessage modifie   : False"
+  ],
+  "channel": [
+    "Bob recoit : Bonjour Bob\nAlice recoit : Salut Alice",
+    "Ancien paquet : REJETE",
+    "Tag modifie : REJETE\nOriginal accepte : Message suivant"
+  ],
+  "attacks": [
+    "Cle retrouvee : 173\nMot de passe : bonjour123\nCollision apres 54 essais",
+    "Secret Alice / Bob : 6 / 15\nMallory intercepte : True\nFacteurs RSA : 53 61\nMessage retrouve : 42"
+  ],
+  "benchmarks": [
+    "Python : 3.14.2\nOperations mesurees : 6\nrsa_keygen : 0.752 ms\nrsa_encrypt : 0.013 ms\nrsa_decrypt : 0.121 ms",
+    "Repetitions : 3\nPic d'allocations Python : 940 octets\nCe pic n'est pas la RAM du processus.\nUn benchmark n'est pas une preuve de securite."
+  ]
+}

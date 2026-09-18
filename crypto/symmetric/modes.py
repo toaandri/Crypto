@@ -17,6 +17,8 @@ def pkcs7_pad(data: bytes, block_size: int = BLOCK_SIZE) -> bytes:
 
 
 def pkcs7_unpad(data: bytes, block_size: int = BLOCK_SIZE) -> bytes:
+    if not 1 <= block_size <= 255:
+        raise ValueError("block size must be between 1 and 255")
     if not data or len(data) % block_size:
         raise ValueError("invalid padded data length")
     padding = data[-1]
@@ -87,4 +89,3 @@ def ctr_crypt(data: bytes, key: bytes, nonce: bytes) -> bytes:
         chunk = data[offset:offset + BLOCK_SIZE]
         output.extend(_xor(chunk, stream[:len(chunk)]))
     return bytes(output)
-

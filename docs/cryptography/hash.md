@@ -14,5 +14,9 @@ L'expérience `experiments.avalanche.run` change chacun des bits du message,
 recalcule SHA‑256 et compte la distance de Hamming entre empreintes. Une bonne
 diffusion fait changer en moyenne près de la moitié des 256 bits. Une empreinte
 seule n'authentifie pas un message : cette propriété nécessite notamment HMAC,
-prévu en phase 4.
+implémenté dans la [phase 4](authentication.md).
 
+`SHA256` propose `update`, `digest`, `hexdigest` et `copy`. Son interface accepte
+des mises à jour successives, mais conserve toutes les données avant calcul :
+elle n'est pas un moteur de streaming à mémoire constante. Les expériences
+[A–F](../experiments.md) incluent trois distributions d'avalanche et leurs données.
