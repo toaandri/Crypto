@@ -1,5 +1,9 @@
 # Documentation complète — Crypto From Scratch
 
+Le [laboratoire interactif](lab.md) présente le lancement de l'IHM, les huit
+espaces, les limites locales et les références de design. Le
+[README principal](../README.md) et le parcours animé sont en anglais.
+
 Chaque module suit le même fil conducteur : problème, principe mathématique,
 algorithme, exemple, limites et équivalent moderne.
 

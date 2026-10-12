@@ -19,6 +19,12 @@ génération documentaire. Garder les JSON afin que les graphiques soient
 reproductibles à partir des données. Les temps et les clés aléatoires peuvent
 varier : ne pas écrire de test imposant une durée précise.
 
+Pour l'IHM : lancer `python -m crypto.lab`, installer l'extra `[ui-test]` et
+Chromium avec `python -m playwright install chromium`, puis exécuter
+`python -m scripts.check_lab_ui`. Ajouter `--publish-assets` pour actualiser
+les captures et le GIF de l'interface du README. Les ressources statiques
+sont embarquées dans le package ; aucun build JavaScript n'est nécessaire.
+
 Le package `crypto` ne doit dépendre que de la bibliothèque standard. Les
 bibliothèques de référence appartiennent aux tests et les outils graphiques
 aux scripts documentaires. Ne pas ajouter d'attaques réseau ou de cibles réelles

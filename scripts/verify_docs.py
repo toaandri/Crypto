@@ -45,9 +45,21 @@ def main():
     for name in ("science", "ecb-cbc"):
         with Image.open(ROOT / f"docs/assets/{name}.png") as plot:
             plot.verify()
+    with Image.open(ROOT / "docs/assets/lab.gif") as animation:
+        assert animation.n_frames == 5
+        assert animation.info.get("loop") == 0
+        for index in range(animation.n_frames):
+            animation.seek(index)
+            animation.load()
+            assert animation.info.get("duration", 0) > 0
+            assert animation.size == (1440, 1150)
+    for name, width in (("lab", 1440), ("lab-mobile", 390)):
+        with Image.open(ROOT / f"docs/assets/{name}.png") as screenshot:
+            assert screenshot.width == width
+            screenshot.verify()
     if failures:
         raise SystemExit("\n".join(failures))
-    print(f"Verified {len(documents)} Markdown files, 10 executable demos, 10 GIFs and 12 PNGs.")
+    print(f"Verified {len(documents)} Markdown files, 10 executable demos, 11 GIFs and 14 PNGs.")
 
 
 if __name__ == "__main__":

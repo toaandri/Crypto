@@ -26,27 +26,27 @@ class Scene:
 
 
 SCENES = (
-    Scene("math", "01 / Les fondations mathématiques", "V1–V2 · Calculer avant de chiffrer", (
-        Step("PGCD et Bézout", "Euclide trouve le PGCD. Bézout explique quand un inverse existe.", '''
+    Scene("math", "01 / Mathematical foundations", "V1–V2 · Compute before encrypting", (
+        Step("GCD and Bezout", "Euclid finds the GCD. Bezout explains when an inverse exists.", '''
             from crypto.math import gcd, extended_gcd, mod_inverse, mod_pow
             g, x, y = extended_gcd(240, 46)
             assert 240*x + 46*y == g == 2
-            print("PGCD(240, 46) =", g)
-            print("Coefficients de Bezout :", x, y)
-            print("Inverse de 3 modulo 7 :", mod_inverse(3, 7))
-            print("4**13 modulo 497 :", mod_pow(4, 13, 497))
+            print("GCD(240, 46) =", g)
+            print("Bezout coefficients:", x, y)
+            print("Inverse of 3 modulo 7:", mod_inverse(3, 7))
+            print("4**13 modulo 497:", mod_pow(4, 13, 497))
         '''),
-        Step("Premiers et facteurs", "Miller–Rabin teste les candidats ; la division retrouve les petits facteurs.", '''
+        Step("Primes and factors", "Miller-Rabin tests candidates; trial division recovers small factors.", '''
             from crypto.math import generate_prime, is_probable_prime, factorize
             prime = generate_prime(64)
             assert prime.bit_length() == 64
-            print("Premier genere :", prime.bit_length(), "bits")
-            print("Test Miller-Rabin :", is_probable_prime(prime))
-            print("Facteurs de 3233 :", factorize(3233))
+            print("Generated prime:", prime.bit_length(), "bits")
+            print("Miller-Rabin test:", is_probable_prime(prime))
+            print("Factors of 3233:", factorize(3233))
         '''),
     )),
-    Scene("rsa", "02 / RSA : du nombre au message", "V3–V4 · Clés, encodage et reconstruction", (
-        Step("Une clé miniature", "p et q donnent n. L'inverse de e modulo phi donne d.", '''
+    Scene("rsa", "02 / RSA: from integers to messages", "V3–V4 · Keys, encoding and reconstruction", (
+        Step("A miniature key", "p and q produce n. The inverse of e modulo phi produces d.", '''
             from crypto.rsa import PublicKey, PrivateKey, encrypt_int, decrypt_int
             from crypto.math import mod_inverse
             p, q, e = 61, 53, 17
@@ -57,173 +57,173 @@ SCENES = (
             print("n =", public.n, "/ d =", private.d)
             print("42 ->", ciphertext, "->", decrypt_int(ciphertext, private))
         '''),
-        Step("Texte, blocs et JSON", "L'encodage préserve les octets et leur longueur. Il ne remplace pas OAEP.", '''
+        Step("Text, blocks and JSON", "Encoding preserves bytes and their length. It does not replace OAEP.", '''
             from crypto.rsa import generate_keypair, encrypt_text, decrypt_text
             public, private = generate_keypair(256)
             encrypted = encrypt_text("Bonjour, RSA !", public)
             assert PublicKey.from_json(public.to_json()) == public
-            print("Blocs chiffres :", len(encrypted.blocks))
-            print("Message retrouve :", decrypt_text(encrypted, private))
-            print("Cle publique JSON : aller-retour OK")
+            print("Encrypted blocks:", len(encrypted.blocks))
+            print("Recovered message:", decrypt_text(encrypted, private))
+            print("Public key JSON: round trip OK")
         '''),
     )),
-    Scene("dh", "03 / Établir un secret commun", "V5 · Diffie–Hellman, sans envoyer le secret", (
-        Step("Les valeurs publiques", "Alice et Bob conservent leurs exposants et échangent seulement A et B.", '''
+    Scene("dh", "03 / Establish a shared secret", "V5 · Diffie-Hellman, without sending the secret", (
+        Step("The public values", "Alice and Bob keep their exponents and exchange only A and B.", '''
             from crypto.diffie_hellman import Party
             alice = Party(prime=23, generator=5, private=6)
             bob = Party(prime=23, generator=5, private=15)
-            print("Alice publie A =", alice.public)
-            print("Bob publie B =", bob.public)
+            print("Alice publishes A =", alice.public)
+            print("Bob publishes B =", bob.public)
         '''),
-        Step("Le même résultat", "Les deux calculs donnent g^(ab) mod p. L'identité du pair reste à vérifier.", '''
+        Step("The same result", "Both calculations produce g^(ab) mod p. The peer still needs authentication.", '''
             secret_a = alice.shared_secret(bob.public)
             secret_b = bob.shared_secret(alice.public)
             assert secret_a == secret_b
-            print("Secret Alice :", secret_a)
-            print("Secret Bob   :", secret_b)
-            print("Secrets identiques :", secret_a == secret_b)
+            print("Alice secret:", secret_a)
+            print("Bob secret:  ", secret_b)
+            print("Matching secrets:", secret_a == secret_b)
         '''),
     )),
-    Scene("hash", "04 / Un bit change l'empreinte", "V6–V7 · SHA-256 et effet avalanche", (
-        Step("Une empreinte de 256 bits", "SHA-256 traite des blocs de 512 bits et produit 32 octets.", '''
+    Scene("hash", "04 / One bit changes the fingerprint", "V6–V7 · SHA-256 and the avalanche effect", (
+        Step("A 256-bit fingerprint", "SHA-256 processes 512-bit blocks and produces 32 bytes.", '''
             from crypto.hashes import sha256, SHA256
             digest = sha256(b"abc")
             incremental = SHA256(b"a")
             incremental.update(b"bc")
             assert incremental.digest() == digest
-            print("Debut du SHA-256 :", digest.hex()[:16])
-            print("Taille :", len(digest)*8, "bits")
+            print("SHA-256 prefix:", digest.hex()[:16])
+            print("Size:", len(digest)*8, "bits")
         '''),
-        Step("Mesurer la diffusion", "Chaque bit de Bonjour est modifié séparément ; on compte les bits différents.", '''
+        Step("Measure diffusion", "Each bit of Bonjour is flipped separately; changed digest bits are counted.", '''
             from experiments.avalanche.run import measure
             result = measure(b"Bonjour")
-            print("Essais :", len(result.samples))
-            print("Moyenne :", round(result.average, 2), "/ 256 bits")
-            print("Proportion :", round(100*result.average_ratio, 2), "%")
+            print("Trials:", len(result.samples))
+            print("Average:", round(result.average, 2), "/ 256 bits")
+            print("Proportion:", round(100*result.average_ratio, 2), "%")
         '''),
     )),
-    Scene("aes", "05 / AES, tour après tour", "V8 · AES-128, AES-192 et AES-256", (
-        Step("Clé et bloc de référence", "L'état AES contient 16 octets. La taille de clé détermine le nombre de tours.", '''
+    Scene("aes", "05 / AES, round by round", "V8 · AES-128, AES-192 and AES-256", (
+        Step("Reference key and block", "The AES state holds 16 bytes. Key size determines the number of rounds.", '''
             from crypto.symmetric import AES
             key = bytes.fromhex("000102030405060708090a0b0c0d0e0f")
             block = bytes.fromhex("00112233445566778899aabbccddeeff")
             cipher = AES(key)
-            print("Bloc :", cipher.block_size, "octets")
-            print("Tours AES-128 :", cipher.rounds)
-            print("Tours AES-192 :", AES(bytes(24)).rounds)
-            print("Tours AES-256 :", AES(bytes(32)).rounds)
+            print("Block:", cipher.block_size, "bytes")
+            print("AES-128 rounds:", cipher.rounds)
+            print("AES-192 rounds:", AES(bytes(24)).rounds)
+            print("AES-256 rounds:", AES(bytes(32)).rounds)
         '''),
-        Step("Vecteur connu et retour", "SubBytes, ShiftRows, MixColumns et AddRoundKey transforment l'état.", '''
+        Step("Known vector and round trip", "SubBytes, ShiftRows, MixColumns and AddRoundKey transform the state.", '''
             encrypted = cipher.encrypt_block(block)
             assert encrypted.hex() == "69c4e0d86a7b0430d8cdb78070b4c55a"
             assert cipher.decrypt_block(encrypted) == block
-            print("Chiffre (hex) :")
+            print("Ciphertext (hex):")
             print(encrypted.hex())
-            print("Dechiffrement : bloc initial retrouve")
+            print("Decryption: original block recovered")
         '''),
     )),
-    Scene("modes", "06 / Choisir un mode", "V9 · ECB, CBC, CTR et AES-GCM", (
-        Step("Les répétitions d'ECB", "Le même bloc donne le même chiffré. CBC chaîne les blocs avec un IV.", '''
+    Scene("modes", "06 / Choose a mode", "V9 · ECB, CBC, CTR and AES-GCM", (
+        Step("ECB repetitions", "The same block produces the same ciphertext. CBC chains blocks with an IV.", '''
             from crypto.symmetric import ecb_encrypt, cbc_encrypt, cbc_decrypt
             key, message = b"educational-key", b"REPETE!!" * 3
             ecb = ecb_encrypt(message, key)
             iv, cbc = cbc_encrypt(message, key)
             assert cbc_decrypt(cbc, key, iv) == message
-            print("ECB : blocs egaux ?", ecb[:8] == ecb[8:16])
-            print("CBC : blocs egaux ?", cbc[:8] == cbc[8:16])
+            print("ECB: equal blocks?", ecb[:8] == ecb[8:16])
+            print("CBC: equal blocks?", cbc[:8] == cbc[8:16])
         '''),
-        Step("CTR : un flux réversible", "CTR applique un XOR avec le flux chiffré. Ne jamais réutiliser le nonce.", '''
+        Step("CTR: a reversible stream", "CTR applies XOR with the encrypted stream. Never reuse the nonce.", '''
             from crypto.symmetric import ctr_crypt
             nonce = b"demo"
             ciphertext = ctr_crypt(message, key, nonce)
             assert ctr_crypt(ciphertext, key, nonce) == message
-            print("Sans padding :", len(ciphertext) == len(message))
-            print("Retour CTR :", ctr_crypt(ciphertext, key, nonce).decode())
+            print("No padding:", len(ciphertext) == len(message))
+            print("CTR round trip:", ctr_crypt(ciphertext, key, nonce).decode())
         '''),
-        Step("GCM : chiffrer et authentifier", "Le tag protège le chiffré et l'en-tête AAD. Il est vérifié avant déchiffrement.", '''
+        Step("GCM: encrypt and authenticate", "The tag protects ciphertext and AAD. Verification precedes decryption.", '''
             from crypto.symmetric import gcm_encrypt, gcm_decrypt
             aes_key = bytes(range(16))
             nonce, ciphertext, tag = gcm_encrypt(b"Bonjour", aes_key, aad=b"Alice")
             plaintext = gcm_decrypt(ciphertext, aes_key, nonce, tag, aad=b"Alice")
             assert plaintext == b"Bonjour"
-            print("Message :", plaintext.decode())
-            print("Nonce / tag :", len(nonce), "/", len(tag), "octets")
+            print("Message:", plaintext.decode())
+            print("Nonce / tag:", len(nonce), "/", len(tag), "bytes")
         '''),
     )),
-    Scene("authentication", "07 / Prouver et vérifier", "V10–V11 · HMAC et signature RSA pédagogique", (
-        Step("Une clé partagée, un MAC", "HMAC détecte un changement. Tous les détenteurs de la clé peuvent le produire.", '''
+    Scene("authentication", "07 / Prove and verify", "V10–V11 · HMAC and educational RSA signatures", (
+        Step("A shared key, a MAC", "HMAC detects changes. Anyone holding the shared key can create it.", '''
             from crypto.authentication import hmac_sha256, verify_hmac
             key, message = b"shared-demo-key", b"montant=10"
             tag = hmac_sha256(key, message)
-            print("Message original :", verify_hmac(key, message, tag))
-            print("Montant modifie  :", verify_hmac(key, b"montant=90", tag))
+            print("Original message:", verify_hmac(key, message, tag))
+            print("Changed amount:  ", verify_hmac(key, b"montant=90", tag))
         '''),
-        Step("Une clé privée, une signature", "La clé publique vérifie. Cette démonstration RSA n'implémente pas PSS.", '''
+        Step("A private key, a signature", "The public key verifies. This RSA demonstration does not implement PSS.", '''
             from crypto.rsa import generate_keypair
             from crypto.signatures import sign, verify
             public, private = generate_keypair(512)
             signature = sign(message, private)
-            print("Signature valide :", verify(message, signature, public))
-            print("Message modifie   :", verify(message+b"!", signature, public))
+            print("Valid signature:", verify(message, signature, public))
+            print("Changed message: ", verify(message+b"!", signature, public))
         '''),
     )),
-    Scene("channel", "08 / Alice parle à Bob", "V12 · Authentifier, chiffrer, contrôler le rejeu", (
-        Step("Échange authentifié", "Une clé prépartagée authentifie le transcript DH. Chaque direction a ses clés.", '''
+    Scene("channel", "08 / Alice talks to Bob", "V12 · Authenticate, encrypt and reject replays", (
+        Step("Authenticated exchange", "A pre-shared key authenticates the DH transcript. Each direction has its keys.", '''
             from crypto.protocols import establish_channels
             alice, bob = establish_channels(b"cle-prepartagee-de-demonstration")
             packet = alice.send(b"Bonjour Bob")
-            print("Bob recoit :", bob.receive(packet).decode())
-            print("Alice recoit :", alice.receive(bob.send(b"Salut Alice")).decode())
+            print("Bob receives:", bob.receive(packet).decode())
+            print("Alice receives:", alice.receive(bob.send(b"Salut Alice")).decode())
         '''),
-        Step("Rejeter le rejeu", "Le compteur mémorise l'ordre. Un paquet déjà accepté ne peut pas être relu.", '''
+        Step("Reject replays", "The counter tracks order. A previously accepted packet cannot be read again.", '''
             try:
                 bob.receive(packet)
             except ValueError:
-                print("Ancien paquet : REJETE")
+                print("Old packet: REJECTED")
         '''),
-        Step("Détecter l'altération", "Le destinataire vérifie le HMAC avant de déchiffrer le contenu.", '''
+        Step("Detect tampering", "The recipient verifies the HMAC before decrypting the content.", '''
             from dataclasses import replace
             next_packet = alice.send(b"Message suivant")
             try:
                 bob.receive(replace(next_packet, tag=bytes(32)))
             except ValueError:
-                print("Tag modifie : REJETE")
-            print("Original accepte :", bob.receive(next_packet).decode())
+                print("Changed tag: REJECTED")
+            print("Original accepted:", bob.receive(next_packet).decode())
         '''),
     )),
-    Scene("attacks", "09 / Casser des paramètres jouets", "V13 · Cinq expériences locales et bornées", (
-        Step("Faible entropie et collisions", "Les cibles sont fixes, minuscules et locales. Aucun service externe n'est testé.", '''
+    Scene("attacks", "09 / Break toy parameters", "V13 · Five bounded local experiments", (
+        Step("Low entropy and collisions", "Targets are fixed, tiny and local. No external service is tested.", '''
             from experiments.attacks.run import run
             results = run()
-            print("Cle retrouvee :", results["brute_force"]["key"])
-            print("Mot de passe :", results["dictionary"]["password"])
-            print("Collision apres", results["collision"]["attempts"], "essais")
+            print("Recovered key:", results["brute_force"]["key"])
+            print("Password:", results["dictionary"]["password"])
+            print("Collision after", results["collision"]["attempts"], "trials")
         '''),
-        Step("MITM et factorisation", "Un DH sans identité permet deux secrets ; les facteurs RSA redonnent la clé.", '''
+        Step("MITM and factorization", "Unauthenticated DH allows two secrets; RSA factors recover the private key.", '''
             mitm = results["mitm"]
-            print("Secret Alice / Bob :", mitm["alice_secret"], "/", mitm["bob_secret"])
-            print("Mallory intercepte :", mitm["intercepted"])
+            print("Alice / Bob secret:", mitm["alice_secret"], "/", mitm["bob_secret"])
+            print("Mallory intercepts:", mitm["intercepted"])
             rsa = results["factorization"]
-            print("Facteurs RSA :", rsa["p"], rsa["q"])
-            print("Message retrouve :", rsa["recovered_message"])
+            print("RSA factors:", rsa["p"], rsa["q"])
+            print("Recovered message:", rsa["recovered_message"])
         '''),
     )),
-    Scene("benchmarks", "10 / Mesurer avant de conclure", "V14 · Charges fixes, temps et allocations", (
-        Step("Un petit benchmark", "La médiane résume les durées. La mémoire Python est mesurée séparément.", '''
+    Scene("benchmarks", "10 / Measure before concluding", "V14 · Fixed workloads, time and allocations", (
+        Step("A small benchmark", "The median summarizes timings. Python allocations are measured separately.", '''
             from experiments.benchmarks.run import run
             report = run(key_sizes=(128,), message_sizes=(16,), repeats=3)
-            print("Python :", report["python"])
-            print("Operations mesurees :", len(report["results"]))
+            print("Python:", report["python"])
+            print("Measured operations:", len(report["results"]))
             for row in report["results"][:3]:
                 milliseconds = round(row["median_seconds"] * 1000, 3)
                 print(row["operation"], ":", milliseconds, "ms")
         '''),
-        Step("Ce que les chiffres signifient", "Les résultats dépendent de la machine. Les petites clés restent pédagogiques.", '''
+        Step("What the numbers mean", "Results depend on the machine. Small keys remain educational.", '''
             row = report["results"][0]
-            print("Repetitions :", row["repeats"])
-            print("Pic d'allocations Python :", row["peak_python_bytes"], "octets")
-            print("Ce pic n'est pas la RAM du processus.")
-            print("Un benchmark n'est pas une preuve de securite.")
+            print("Repetitions:", row["repeats"])
+            print("Pic d'allocations Python:", row["peak_python_bytes"], "bytes")
+            print("This peak is not process RAM.")
+            print("A benchmark is not proof of security.")
         '''),
     )),
 )

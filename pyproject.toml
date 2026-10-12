@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "crypto-from-scratch-educational"
-version = "1.0.0"
+version = "1.1.0"
 description = "Educational cryptographic algorithms implemented from scratch"
 readme = "README.md"
 requires-python = ">=3.10"
@@ -13,6 +13,13 @@ license = {text = "MIT"}
 [project.optional-dependencies]
 test = ["pytest>=8", "cryptography>=43"]
 docs = ["Pillow>=10", "matplotlib>=3.8"]
+ui-test = ["playwright>=1.50", "Pillow>=10"]
+
+[project.scripts]
+crypto-lab = "crypto.lab.server:main"
+
+[tool.setuptools.package-data]
+"crypto.lab" = ["static/*.html", "static/*.css", "static/*.js", "static/*.svg"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]

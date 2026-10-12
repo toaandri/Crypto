@@ -27,6 +27,8 @@ testable, pas une garantie de sécurité en production.
 | Expériences A–F | [rapport](experiments.md), [données](results/science.json) | [tests des études](../tests/test_science.py), figures reproductibles |
 | Documentation et exemples | [README](../README.md), [parcours](../examples/tour.py) | [vérification](../scripts/verify_docs.py), GIFs et alternatives fixes |
 | Installation et collaboration | [pyproject](../pyproject.toml), [contribution](../CONTRIBUTING.md) | [workflow CI](../.github/workflows/tests.yml) |
+| IHM interactive locale | [laboratoire](../crypto/lab/server.py), [guide](lab.md) | [tests HTTP et algorithmes](../tests/test_lab.py), [tests navigateur](../scripts/check_lab_ui.py) |
+| README anglais et captures IHM | [sources](readme_header.md), [parcours anglais](../examples/tour.py) | GIFs exécutables, captures réelles, liens vérifiés |
 
 ## Périmètre explicite
 

@@ -57,7 +57,7 @@ def _frame(scene, step_index, output, reveal):
     _wrapped(draw, step.explanation, 72, 245, _font(21), 1260, MUTED, 28)
     draw.line((72, 318, 1368, 318), fill=BORDER, width=2)
     draw.text((76, 340), "PYTHON", font=_font(15, bold=True), fill=CYAN)
-    draw.text((982, 340), "SORTIE EXÉCUTÉE", font=_font(15, bold=True), fill=GREEN)
+    draw.text((982, 340), "ACTUAL OUTPUT", font=_font(15, bold=True), fill=GREEN)
     draw.line((951, 338, 951, 695), fill=BORDER, width=2)
     lines = textwrap.dedent(step.code).strip().splitlines()
     code_font = _font(18, mono=True)
@@ -81,8 +81,8 @@ def _frame(scene, step_index, output, reveal):
         for index, line in enumerate(output_lines):
             draw.text((982, 379 + index * 26), line, font=_font(18, mono=True), fill=GREEN)
     else:
-        draw.text((982, 379), "Exécution…", font=_font(20), fill=MUTED)
-    draw.text((48, 760), "Bibliothèque éducative · Python · Exemples reproductibles", font=_font(18), fill=MUTED)
+        draw.text((982, 379), "Running…", font=_font(20), fill=MUTED)
+    draw.text((48, 760), "Educational library · Python · Reproducible examples", font=_font(18), fill=MUTED)
     for index in range(len(scene.steps)):
         x = 1250 + index * 35
         draw.rounded_rectangle((x, 767, x + 22, 773), radius=3,
@@ -151,10 +151,9 @@ def plots(data):
 def readme(outputs):
     parts = [(ROOT / "docs" / "readme_header.md").read_text(encoding="utf-8")]
     for scene in SCENES:
-        parts.append(f"\n<a id=\"demo-{scene.slug}\"></a>\n\n### {scene.title}\n\n{scene.subtitle}.\n")
-        parts.append(f"\n![{scene.title} : code Python et résultats étape par étape](docs/assets/{scene.slug}.gif)\n")
-        parts.append(f"\n[Image fixe](docs/assets/{scene.slug}.png) · Exécuter : `python -m examples.tour {scene.slug}`\n")
-        parts.append("\n<details>\n<summary>Lire le code et les résultats de cette démonstration</summary>\n")
+        parts.append(f"\n<a id=\"demo-{scene.slug}\"></a>\n\n<details>\n<summary>{scene.title}</summary>\n\n{scene.subtitle}.\n")
+        parts.append(f"\n![{scene.title}: Python code and actual output, step by step](docs/assets/{scene.slug}.gif)\n")
+        parts.append(f"\n[Still image](docs/assets/{scene.slug}.png) · Run: `python -m examples.tour {scene.slug}`\n")
         for step, output in zip(scene.steps, outputs[scene.slug]):
             parts.append(f"\n**{step.title}.** {step.explanation}\n\n```python\n{textwrap.dedent(step.code).strip()}\n```\n\n```text\n{output}\n```\n")
         parts.append("\n</details>\n")
@@ -334,7 +333,7 @@ def main():
     readme(outputs)
     (ROOT / "docs/results/demo_outputs.json").write_text(
         json.dumps(outputs, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
-    print("README, 10 GIFs, 10 static alternatives and 2 scientific figures generated.")
+    print("English README, 10 GIFs, 10 static alternatives and 2 scientific figures generated.")
 
 
 if __name__ == "__main__":

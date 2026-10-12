@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#36399b">
+  <meta name="description" content="A local cryptography workbench, from number theory to authenticated conversations.">
+  <title>Crypto Lab — From ideas to bits</title>
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/style.css">
+  <script src="/app.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#workspace">Skip to the experiment</a>
+  <div class="shell">
+    <aside class="rail" aria-label="Lab navigation">
+      <a class="brand" href="#hash" aria-label="Crypto Lab, home">
+        <svg viewBox="0 0 40 40" aria-hidden="true"><path d="M8 12h16v16H8zM16 4h16v16H16z"/><path d="M8 20h8m8-8h8M16 28v8h16V20"/></svg>
+        <span>Crypto<span class="brand-sub">from scratch</span></span>
+      </a>
+      <p class="rail-intro">From ideas<br>to bits.</p>
+      <nav id="navigation" aria-label="Experiments"></nav>
+      <div class="rail-bottom">
+        <span class="connection"><span class="status-dot"></span>Local workbench</span>
+        <p>Powered by Python.<br>No external services.</p>
+      </div>
+    </aside>
+    <main id="workspace" tabindex="-1">
+      <header class="topbar">
+        <span class="topbar-title">The cryptography workbench</span>
+        <span class="purpose">Understand, experiment, verify.</span>
+      </header>
+      <div class="workspace-body">
+        <div class="page-heading">
+          <div><p id="topic" class="topic"></p><h1 id="title"></h1></div>
+          <button id="reset" type="button" class="quiet-button" title="Restore the example parameters">Reset the example</button>
+        </div>
+        <p id="description" class="description"></p>
+        <div class="workbench">
+          <section class="instrument" aria-labelledby="input-title">
+            <div class="section-heading"><h2 id="input-title">Your experiment</h2><span id="input-meta"></span></div>
+            <form id="experiment-form" novalidate>
+              <div id="fields"></div>
+              <div class="form-actions"><button id="run" class="primary-button" type="submit">Calculate fingerprints <span aria-hidden="true">↗</span></button><span id="run-hint"></span></div>
+            </form>
+            <p id="error" class="error" role="alert" hidden></p>
+            <section class="output" aria-labelledby="output-title" aria-busy="false">
+              <div class="section-heading output-heading"><h2 id="output-title">What happens</h2><span id="result-state" role="status">Ready to calculate</span></div>
+              <div id="result"><p class="empty-state">Choose your parameters, then run the experiment.</p></div>
+              <div class="result-actions"><span id="elapsed"></span><button id="export" type="button" class="text-button" title="Export the result and its parameters, including demonstration keys" disabled>Export result as JSON</button></div>
+            </section>
+          </section>
+          <aside class="field-notes" aria-labelledby="notes-title">
+            <div class="notes-mark" aria-hidden="true">✳</div>
+            <h2 id="notes-title">What to notice</h2>
+            <div id="notes"></div>
+            <div class="reading"><h3>In the code</h3><code id="source"></code><p>Results are computed by the Python implementations in this repository.</p></div>
+          </aside>
+        </div>
+        <footer class="workspace-footer"><span>A learning tool with its inner workings on display.</span><span>Demonstration keys. Do not protect real data with this code.</span></footer>
+      </div>
+    </main>
+  </div>
+  <noscript><p class="noscript">Enable JavaScript to use the interactive experiments. Python examples are also available in the repository.</p></noscript>
+</body>
+</html>
